@@ -1,0 +1,2 @@
+4-days-forecast =  http://api.weatherapi.com/v1/forecast.json?key=31d9b064ba1f4a2490f190950230811&q=Nairobi&days=4&aqi=no&alerts=no
+current = http://api.weatherapi.com/v1/current.json?key=31d9b064ba1f4a2490f190950230811&q=London&aqi=no

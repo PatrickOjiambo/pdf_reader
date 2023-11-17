@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
+import "package:ui_challenge/components/menu.dart";
 
 //The top section of the main screen
-Row top() {
+Row top(BuildContext context) {
   return Row(
     children: [
       Row(
@@ -14,10 +15,18 @@ Row top() {
         ],
       ),
       const Spacer(),
-      const Icon(
-        Icons.menu,
-        color: Colors.white,
-        size: 20,
+      InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Menu()),
+          );
+        },
+        child: const Icon(
+          Icons.menu,
+          color: Colors.white,
+          size: 20,
+        ),
       )
     ],
   );
