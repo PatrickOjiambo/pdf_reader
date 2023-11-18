@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
@@ -9,6 +11,49 @@ class Menu extends StatefulWidget {
 
 class _MenuState extends State<Menu> {
   String cityName = "";
+  //Finding the path to the directory where we will store our file
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+  //Creating a reference to the file location
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/city.txt');
+  }
+  //Writing city name to the file
+Future<File> writeCity(String city) async {
+final file = await _localFile;
+debugPrint("City added");
+return file.writeAsString(city);
+}
+//Reading city names from the file
+Future<String> readCity() async {
+  try {
+    final file = await _localFile;
+    String contents = await file.readAsString();
+    debugPrint("Cities read");
+    return contents;
+  } catch (e) {
+    debugPrint("Error: $e");
+    return "";
+  }
+}
+
+String allCities = "";
+@override
+void initState(){
+  super.initState();
+  readCity().then((String value){
+    setState(() {
+      allCities = value;
+      
+    });
+     debugPrint(allCities);
+  });
+ 
+}
   @override
   Widget build(BuildContext context) {
     SizedBox data() {
@@ -135,9 +180,7 @@ class _MenuState extends State<Menu> {
                         fontWeight: FontWeight.w300),
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     fillColor: Colors.white.withOpacity(0.8),
-                    border: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.white.withOpacity(0.8))),
+                   
                   ),
                 ),
                 actions: [
@@ -149,10 +192,13 @@ class _MenuState extends State<Menu> {
                           fontSize: 15,
                           fontWeight: FontWeight.w300),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
                       setState(() {
                         cityName = cityController.text;
                       });
+                      await writeCity(cityName);
+                      // ignore: use_build_context_synchronously
+                      if(!context.mounted) return;
                       Navigator.of(context).pop();
                     },
                   ),
