@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ui_challenge">
+    package="com.example.pdf_reader">
    <application
-        android:label="ui_challenge"
+        android:label="pdf_reader"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

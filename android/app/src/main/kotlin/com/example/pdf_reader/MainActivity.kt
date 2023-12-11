@@ -1,4 +1,4 @@
-package com.example.ui_challenge
+package com.example.pdf_reader
 
 import io.flutter.embedding.android.FlutterActivity
 
