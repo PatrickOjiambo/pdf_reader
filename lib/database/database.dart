@@ -1,5 +1,4 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:pdf_reader/database/database.dart';
 import 'package:path/path.dart';
 import 'package:pdf_reader/database/book.dart';
 class DatabaseHelper
@@ -14,7 +13,7 @@ Future<Database> initializeDatabase() async{
       // When the database is first created, create a table to store books.
       onCreate: (db,version){
         return db.execute(
-          "CREATE TABLE books(id TEXT PRIMARY KEY,path TEXT,title TEXT,coverImagePath TEXT,lastPage INTEGER)"
+          "CREATE TABLE IF NOT EXISTS books(id TEXT PRIMARY KEY,path TEXT,title TEXT,coverImagePath TEXT,lastPage INTEGER, lastRead UPDATE NOW())"
         );
       },
       version: 1,
@@ -53,6 +52,7 @@ Future<List<Book>> retrieveBooks() async{
       title: maps[i]['title'],
       coverImagePath: maps[i]['coverImagePath'],
       lastPage: maps[i]['lastPage'],
+      lastRead: maps[i]['lastRead'],
     );
   });
 

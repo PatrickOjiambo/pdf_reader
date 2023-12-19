@@ -4,7 +4,8 @@ class Book{
   final String title;
   final String coverImagePath;
   final String lastPage;
-  const Book({ required this.id,required this.path, required this.title, required this.coverImagePath, required this.lastPage});
+  final String lastRead;
+  const Book({ required this.id,required this.path, required this.title, required this.coverImagePath, required this.lastPage, required this.lastRead});
   //Convert a book into a Map. They keys correspond to the names of the columns in the database.
 Map<String, dynamic>toMap(){
   return{
