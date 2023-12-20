@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-AppBar customAppBar(){
+AppBar customAppBar(String s){
+
 return AppBar(
-  title: const Text('My App'),
+  title: Text(s),
   centerTitle: true,
   backgroundColor: const Color.fromARGB(255, 54, 244, 149),
   elevation: 0,

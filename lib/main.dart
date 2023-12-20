@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:pdf_reader/screens/homepage/home_page.dart';
-import 'package:pdf_reader/widgets/app_bar.dart';
-import 'package:pdf_reader/utils/path_fetcher.dart';
+import 'package:pdf_reader/screens/homepage/permissions.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:pdf_reader/screens/homepage/homepage.dart';
 void main() {
-  runApp(
-    const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
-    )
-  );
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MyApp(),
+  ));
 }
-class MyApp extends StatelessWidget {
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+class _MyAppState extends State<MyApp> {
+  Future<PermissionStatus> checkPermission() async {
+    return await Permission.manageExternalStorage.status;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: customAppBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: (){
-               Future<List<String>> myList =  scanPdfFiles();
-               debugPrint(myList.toString());
-               debugPrint("Some logs need to work MAIN");
-               debugPrint("Past the logs MAIN");
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage()));
-              },
-              child: const Text("Go to HomePage"),
-            ),
-          ],
-        ),
-      ),
+    return FutureBuilder<PermissionStatus>(
+      future: checkPermission(),
+      builder: (BuildContext context, AsyncSnapshot<PermissionStatus> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator(); // Show loading spinner while waiting for permission check
+        } else {
+          if (snapshot.data!.isGranted) {
+            debugPrint("Permission is granted");
+            return const HomePage(); // Replace with your HomePage widget
+          } else {
+            debugPrint("Permission is denied");
+            return const PermissionsPage();
+          }
+        }
+      },
     );
   }
 }
-
-
