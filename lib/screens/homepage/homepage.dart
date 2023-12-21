@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pdf_reader/widgets/app_bar.dart';
-
+import 'package:pdf_reader/utils/path_fetcher.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -9,6 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<List<String>> files = scanPdfFiles();
+    
   @override
   Widget build(BuildContext context) {
     return Scaffold(

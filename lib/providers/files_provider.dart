@@ -3,55 +3,60 @@
 
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:pdf_reader/utils/pdf_fetcher.dart';
+import 'package:pdf_reader/utils/path_fetcher.dart';
+class FilesProvider extends ChangeNotifier {  
 
-class FilesProvider extends ChangeNotifier {
-  // ignore: prefer_final_fields
-  List<File> _files = [];
-// ignore: prefer_final_fields
-  List<File> _trash_files = [];
-// ignore: prefer_final_fields
-List<File> _reading_now = [];
-//Getters for the file lists
-  List<File> get trash_files => _trash_files;
-  List<File> get files => _files;
-  List<File> get reading_now => _reading_now;
 
-  void addFile(File file) {
-    _files.add(file);
-    notifyListeners();
-  }
 
-  void removeFile(File file) {
-    _files.remove(file);
-    notifyListeners();
-  }
 
-  void addToTrash(File file) {
-    _files.remove(file);
-    _trash_files.add(file);
-    notifyListeners();
-  }
 
-  void restoreFromTrash(File file) {
-    _trash_files.remove(file);
-    _files.add(file);
-    notifyListeners();
-  }
 
-  void emptyTrash() {
-    _trash_files.clear();
-    deleteListOfFiles(_trash_files);
-    notifyListeners();
-  }
+  
+              
+//   // ignore: prefer_final_fields
+//   List<String> _files = [];
+// // ignore: prefer_final_fields
+//   List<String> _trash_files = [];
+// // ignore: prefer_final_fields
+// List<String> _reading_now = [];
+// //Getters for the file lists
+//   List<String> get trash_files => _trash_files;
+//   List<String> get files => _files;
+//   List<String> get reading_now => _reading_now;
 
-  void deleteFile(File file) {
-    _trash_files.remove(file);
-    deletefile(file);
-    notifyListeners();
-  }
-  void addToReadingNow(File file){
-    _reading_now.add(file);
-    notifyListeners();
-  }
+//   void addFile(String file) {
+//     _files.add(file);
+//     notifyListeners();
+//   }
+
+//   void removeFile(String file) {
+//     _files.remove(file);
+//     notifyListeners();
+//   }
+
+//   void addToTrash(String file) {
+//     _files.remove(file);
+//     _trash_files.add(file);
+//     notifyListeners();
+//   }
+
+//   void restoreFromTrash(String file) {
+//     _trash_files.remove(file);
+//     _files.add(file);
+//     notifyListeners();
+//   }
+
+//   void emptyTrash() {
+//     _trash_files.clear();
+//     notifyListeners();
+//   }
+
+//   void deleteFile(String file) {
+//     _trash_files.remove(file);
+//     notifyListeners();
+//   }
+//   void addToReadingNow(String file){
+//     _reading_now.add(file);
+//     notifyListeners();
+//   }
 }
