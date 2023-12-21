@@ -19,7 +19,7 @@ Card documentCard(String image, DateTime date, int size, String fileName) {
               children: [
                 Text(dateString),
                 Text(timeString),
-                Text(size as String)
+                Text(size.toString())
               ],
             )
           ],
