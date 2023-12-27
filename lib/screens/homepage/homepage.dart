@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf_reader/widgets/app_bar.dart';
 import 'package:pdf_reader/utils/path_fetcher.dart';
 import 'package:pdf_reader/widgets/document_list_tile.dart';
+import 'package:pdf_reader/screens/view_pdf.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,8 +36,18 @@ class _HomePageState extends State<HomePage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 var file = snapshot.data![index];
-                return documentCard("./assets/images/pdficon.png", file['date'],
-                    file['size'], file['filename']);
+                return GestureDetector(
+                  child: documentCard("./assets/images/pdficon.png",
+                      file['date'], file['size'], file['filename']),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PDFScreen(
+                                  // path: file['path'],
+                                )));
+                  },
+                );
               },
             );
           }
